@@ -76,6 +76,14 @@ app.post('/links',
     });
 });
 
+app.post('/signup',
+(req, res, next) => {
+  return models.Users.create(req.body)
+    .then(success => {
+      res.status(200).send(success);
+    });
+
+});
 /************************************************************/
 // Write your authentication routes here
 /************************************************************/
