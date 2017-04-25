@@ -11,10 +11,10 @@ class Users extends Model {
   }
   
   create(body) {
-    let shasum = crypto.createHash('sha1');
-    // shasum.update(body.username);
-    body.password = shasum.digest('hex').slice(0, 5);
-
+    // let shasum = crypto.createHash('sha1');
+    // shasum.update(body.password);
+    // body.password = shasum.digest('hex').slice(0, 5);
+    body.password = utils.createHashedPassword(body.password);
     return super.create.call(this, body);
   }
 }

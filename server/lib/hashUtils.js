@@ -5,5 +5,5 @@ const crypto = require('crypto');
 /************************************************************/
 
 exports.createHashedPassword = function(password) {
-  return crypto.createHash('sha1').update(password).digest('hex');
+  return crypto.createHash('sha1').update(password).digest('hex').slice(0, 5);
 }
