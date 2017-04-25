@@ -78,10 +78,29 @@ app.post('/links',
 
 app.post('/signup',
 (req, res, next) => {
-  return models.Users.create(req.body)
-    .then(success => {
-      res.status(200).send(success);
+
+  return models.Users.get({'username': req.body.username})
+    .then(tableEntry => {
+      if (tableEntry) {
+        res.writeHead(301, {
+          'location': '/signup'
+        });
+        res.end();
+      }
+      return models.Users.create(req.body)
+        .then(createUser => {
+          res.writeHead(200, {
+            'location': '/'
+          });
+          res.end();
+        });
     });
+});
+
+app.post('/login',
+(req, res, next) => {
+  
+
 
 });
 /************************************************************/

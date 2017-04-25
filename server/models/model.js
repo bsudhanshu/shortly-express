@@ -7,7 +7,7 @@ const executeQuery = (query, values) => {
 
 const parseData = options => {
   return _.reduce(options, (parsed, value, key) => {
-    parsed.string.push(`${key} = ?`);
+    parsed.string.push(`${key} = ?`); // We adjusted this!
     parsed.values.push(value);
     return parsed;
   }, { string: [], values: [] });
@@ -25,7 +25,9 @@ class Model {
 
   get(options) {
     let parsedOptions = parseData(options);
+    // console.log(parsedOptions, '!!!!!!!!!!!!!');
     let queryString = `SELECT * FROM ${this.tablename} WHERE ${parsedOptions.string.join(' AND ')}`;
+    // console.log(queryString);
     return executeQuery(queryString, parsedOptions.values).spread(results => results);
   }
 
