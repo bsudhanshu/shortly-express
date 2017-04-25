@@ -100,7 +100,31 @@ app.post('/signup',
 app.post('/login',
 (req, res, next) => {
   
+  var enteredPassword = req.body.password;
+  // console.log('ENTERED PASSWORD', enteredPassword);
+  return models.Users.get({'username': req.body.username})
+    .then(tableEntry => {
+      if (tableEntry) { // if username exists
+        res.writeHead(200, {
+          'location': '/'
+        });
+        // 'password': utils.createHashedPassword(req.body.password),
+        console.log(enteredPassword, tableEntry.password);
+        // if password matches
+          // res.end()
+        // else if password doesn't match
+          // writehead to 301 and set location to /login
+          // res.end()
+        res.end();
+      } else { // if username doesn't exist
+        res.writeHead(301, {
+          'location': '/login'
+        });
+        res.end();
+      }
+    });
 
+  // return models.Users.get({'password': req.body.password})
 
 });
 /************************************************************/
