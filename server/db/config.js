@@ -36,6 +36,15 @@ module.exports = (db) => {
           UNIQUE (username)
         );`);
     })
+    .then(() => {
+      return db.queryAsync(`
+        CREATE TABLE IF NOT EXISTS sessions (
+          id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          timestamp TIMESTAMP,
+          user_id INT,
+          hash VARCHAR(255)
+        );`);
+    })
   /************************************************************/
   /*          Add additional schema queries here              */
   /************************************************************/

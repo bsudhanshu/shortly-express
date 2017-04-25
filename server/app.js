@@ -110,19 +110,17 @@ app.post('/login',
           res.writeHead(200, {
             'location': '/'
           });
-          res.end();
         } else { // password doesn't match
           res.writeHead(301, {
             'location': '/login'
           });
-          res.end();
         }
       } else { // if username doesn't exist
         res.writeHead(301, {
           'location': '/login'
         });
-        res.end();
       }
+      res.end();
     });
 
   // return models.Users.get({'password': req.body.password})
